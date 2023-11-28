@@ -54,7 +54,7 @@ section.left {
 
   h1 {
     font-weight: 700;
-    font-size: clamp(32px, 16vw, 206px);
+    font-size: clamp(32px, 16vmin, 206px);
   }
 
   span {
@@ -64,16 +64,226 @@ section.left {
   }
 }
 
-.video-container {
+.picture-container {
   position: fixed;
   z-index: 1;
   right: 32px;
   bottom: 32px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+
+  .play-button {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.225s cubic-bezier(0.4, 0, 0, 1),
+      opacity 0.225s cubic-bezier(0.4, 0, 0, 1);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: #f95b5f;
+    width: calc(10 * var(--vw));
+    height: calc(10 * var(--vw));
+
+    svg {
+      width: 40%;
+      height: 40%;
+    }
+  }
+
+  &:hover {
+    .play-button {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  }
+
+  figure {
+    width: 40vmax;
+    height: auto;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.backdrop {
+  display: block;
+  position: absolute;
+  z-index: 99;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: all 1s cubic-bezier(0.4, 0, 0, 1);
+
+  &.is-active {
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
+  }
+}
+
+.modal {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  transform: translateY(100vh);
+  pointer-events: none;
+}
+
+.video-player {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
   border-radius: 8px;
   overflow: hidden;
 
   video {
-    width: 40vmax;
-    height: auto;
+    position: relative;
+    z-index: 0;
+    max-width: 80vw;
+    max-height: 80vh;
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  .controls {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    column-gap: 16px;
+
+    .play-pause {
+      width: 36px;
+      height: 36px;
+      padding: 4px;
+      color: #ffffff;
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .time {
+      flex: 1;
+      position: relative;
+      height: 17px;
+      cursor: pointer;
+
+      &__inside {
+        display: block;
+        position: absolute;
+        z-index: 2;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 4px;
+        width: 60%;
+        background-color: #ffffff;
+        border-radius: 9999px;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.1);
+        width: 100%;
+        height: 4px;
+        border-radius: 9999px;
+      }
+    }
+
+    .volume {
+      position: relative;
+      width: 36px;
+      height: 36px;
+      padding: 4px;
+      color: #ffffff;
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      &:hover {
+        .volume__bar {
+          opacity: 1;
+        }
+      }
+
+      &__bar {
+        position: absolute;
+        z-index: 2;
+        left: 50%;
+        bottom: 100%;
+        transform: translateX(-50%);
+        height: 80px;
+        width: 17px;
+        cursor: pointer;
+        opacity: 0;
+
+        &__inside {
+          display: block;
+          position: absolute;
+          z-index: 2;
+          left: 50%;
+          bottom: 0;
+          transform: translateX(-50%);
+          width: 4px;
+          height: 60%;
+          background-color: #ffffff;
+          border-radius: 9999px;
+        }
+
+        &::before {
+          content: '';
+          position: absolute;
+          z-index: 1;
+          left: 50%;
+          bottom: 0;
+          transform: translateX(-50%);
+          background-color: rgba(0, 0, 0, 0.1);
+          width: 4px;
+          height: 100%;
+          border-radius: 9999px;
+        }
+      }
+    }
   }
 }
