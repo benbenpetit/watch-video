@@ -25,11 +25,10 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  height: 80px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 32px;
+  padding: 46px 52px;
 
   a {
     color: inherit;
@@ -48,7 +47,7 @@ main {
 }
 
 section.left {
-  padding: 0 32px;
+  padding: 0 52px;
   padding-top: 20vh;
   max-width: clamp(800px, 80vw, 1200px);
 
