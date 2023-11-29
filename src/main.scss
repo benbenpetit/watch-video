@@ -167,8 +167,8 @@ section.left {
   video {
     position: relative;
     z-index: 0;
-    max-width: 80vw;
-    max-height: 80vh;
+    max-width: 85vw;
+    max-height: 85vh;
     min-width: 100%;
     min-height: 100%;
   }
@@ -183,6 +183,7 @@ section.left {
     display: flex;
     align-items: center;
     column-gap: 16px;
+    opacity: 0;
 
     .play-pause {
       width: 36px;
@@ -222,7 +223,7 @@ section.left {
         left: 0;
         top: 50%;
         transform: translateY(-50%);
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: #ababab;
         width: 100%;
         height: 4px;
         border-radius: 9999px;
@@ -239,9 +240,11 @@ section.left {
       svg {
         width: 100%;
         height: 100%;
+        cursor: pointer;
       }
 
-      &:hover {
+      &:hover,
+      &.is-active {
         .volume__bar {
           opacity: 1;
         }
@@ -278,7 +281,7 @@ section.left {
           left: 50%;
           bottom: 0;
           transform: translateX(-50%);
-          background-color: rgba(0, 0, 0, 0.1);
+          background-color: #ababab;
           width: 4px;
           height: 100%;
           border-radius: 9999px;
